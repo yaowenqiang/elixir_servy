@@ -48,7 +48,7 @@ defmodule Servy.Handler do
   end
   #pattern match /bears/1
 #def route(%Conv{} = conv,"GET", "/bears/" <> id) do
-  def route(%Conv{method: "GET",path: "/bears" <> id } = conv ) do
+  def route(%Conv{method: "GET",path: "/bears/" <> id } = conv ) do
 #%{conv | status: 200, resp_body: "Bear #{id}" }
   params = Map.put(conv.params, "id", id)
   BearController.show(conv, params)
