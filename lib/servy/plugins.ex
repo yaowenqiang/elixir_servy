@@ -5,7 +5,7 @@ defmodule Servy.Plugins do
     IO.puts "Warning: #{path} is no the loose!"
     conv
   end
-  def track(%Conv{} = conv), do: conv
+  def track(conv), do: conv
 
   def rewrite_path(%Conv{path: "/wildlife"} = conv) do
     %{conv | path: "/wildthings" } 

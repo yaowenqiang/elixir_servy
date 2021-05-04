@@ -55,15 +55,15 @@ defmodule Servy.Handler do
   end
 
 
-  def route(%Conv{method: "GET",path: "/about" } = conv ) do
+#def route(%Conv{method: "GET",path: "/about" } = conv ) do
     #pages_path = Path.expand("../../pages", __DIR__)
     #file = Path.join(pages_path, "about.html")
-  end
+#end
 
   def route(%Conv{method: "POST",path: "/bears" } = conv ) do
 #%{ conv | status: 201,
-#              resp_body: "Create a #{conv.param["type"]}, bear named #{conv.params["name"]}!"}
-  BearController.create(conv, conv.params)
+#              resp_body: "Create a #{conv.params["type"]}, bear named #{conv.params["name"]}!"}
+    BearController.create(conv, conv.params)
   end
   def route(%Conv{method: "GET", path: "/about"} = conv) do
 #Path.expand("../../pages", __DIR__)
@@ -108,7 +108,7 @@ def route(%Conv{path: path} = conv) do
    %{conv | status: 404, resp_body: "No #{path} here!" } 
   end
 
-  def format_response(%Conv{} = conv) do
+  def format_response(conv) do
     """
     HTTP/1.1 #{Conv.full_status(conv)}}
     Content-type: text/html
