@@ -1,6 +1,8 @@
 defmodule Servy.Handler do
   @moduledoc "Handle HTTP requests"
 
+  alias Servy.Conv
+
   @pages_path  Path.expand("../../pages", __DIR__)
   import Servy.Plugins, only: [rewrite_path: 1, log: 1, track: 1]
   import Servy.Parser, only: [parse: 1]
@@ -20,36 +22,36 @@ defmodule Servy.Handler do
     |> format_response
   end
 
-#def route(conv) do
+#def route(%Conv{} = conv) do
     #conv[:method]
     #conv.method
     #conv = %{ method: "GET", path: "/wildthings", resp_body: "Bears, Lions, Tigers"}
     #%{conv | resp_body: "Bears, Lions, Tigers" }
-    #route(conv, conv.method, conv.path)
+    #route(%Conv{} = conv, conv.method, conv.path)
 #  end
 
-#def route(%{method: "GET", path: "/wildthings"}) do
+#def route(%Conv{method: "GET", path: "/wildthings"}) do
 
 #end
 
 
-#def route(conv,"GET",  "/wildthings") do
-  def route(%{ method: "GET",path: "/wildthings" } = conv ) do
+#def route(%Conv{} = conv,"GET",  "/wildthings") do
+  def route(%Conv{ method: "GET",path: "/wildthings" } = conv ) do
     %{conv | status: 200, resp_body: "Bears, Lions, Tigers" }
   end
 
-#def route(conv,"GET", "/bears") do
-  def route(%{method: "GET",path: "/bears" } = conv ) do
+#def route(%Conv{} = conv,"GET", "/bears") do
+  def route(%Conv{method: "GET",path: "/bears" } = conv ) do
     %{conv | status: 200, resp_body: "Teddy, Smokey, Paddington" }
   end
   #pattern match /bears/1
-#def route(conv,"GET", "/bears/" <> id) do
-  def route(%{method: "GET",path: "/bears" <> id } = conv ) do
+#def route(%Conv{} = conv,"GET", "/bears/" <> id) do
+  def route(%Conv{method: "GET",path: "/bears" <> id } = conv ) do
     %{conv | status: 200, resp_body: "Bear #{id}" }
   end
 
 
-  def route(%{method: "GET",path: "/about" } = conv ) do
+  def route(%Conv{method: "GET",path: "/about" } = conv ) do
     #pages_path = Path.expand("../../pages", __DIR__)
     #file = Path.join(pages_path, "about.html")
 #Path.expand("../../pages", __DIR__)
@@ -86,17 +88,17 @@ defmodule Servy.Handler do
 #  end
 
 
-#def route(conv, _method, path) do
+#def route(%Conv{} = conv, _method, path) do
 #   %{conv | status: 404, resp_body: "No #{path} here!" } 
 #  end
 
-def route(%{path: path} = conv) do
+def route(%Conv{path: path} = conv) do
    %{conv | status: 404, resp_body: "No #{path} here!" } 
   end
 
-  def format_response(conv) do
+  def format_response(%Conv{} = conv) do
     """
-    HTTP/1.1 #{conv.status} #{status_reson(conv.status)}
+    HTTP/1.1 #{Conv.full_status(conv)}}
     Content-type: text/html
     Content-Length: #{String.length(conv.resp_body)}
 
@@ -106,16 +108,6 @@ def route(%{path: path} = conv) do
   end
 
   #private function
-  defp status_reson(code) do
-    %{
-      200 => "OK",
-      201 => "Created",
-      401 => "Unauthorized",
-      403 => "Forbidden",
-      404 => "Not Found",
-      500 => "Internal Server Error",
-    }[code]
-  end
 
 end
 
