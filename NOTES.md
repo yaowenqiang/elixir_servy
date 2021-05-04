@@ -15,3 +15,5 @@
 > iex -S mix
 > iex(1)> Servy.hello("world")
 > iex > r Servy # recompile
+> iex > h Strings.tab
+> iex > h Map.put
