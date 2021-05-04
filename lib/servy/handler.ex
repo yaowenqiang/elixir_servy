@@ -54,6 +54,7 @@ defmodule Servy.Handler do
   def route(%Conv{method: "GET",path: "/about" } = conv ) do
     #pages_path = Path.expand("../../pages", __DIR__)
     #file = Path.join(pages_path, "about.html")
+  end
 
   def route(%Conv{method: "POST",path: "/bears" } = conv ) do
     %{ conv | status: 201,
