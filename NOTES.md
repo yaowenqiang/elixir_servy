@@ -18,3 +18,5 @@
 > iex > h Strings.tab
 > iex > h Map.put
 > iex > h File.read
+
+> for x <- [1,2,3], do: x * 3
