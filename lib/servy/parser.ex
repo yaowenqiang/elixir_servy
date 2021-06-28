@@ -38,6 +38,17 @@ defmodule Servy.Parser do
 #def parse_headers([], headers) , do: IO.puts "Done"
   def parse_headers([], headers) , do: headers
 
+  @doc """
+  Parse hte given param string of the form `key1=value1&key2=value2`
+  into a map with corresponding keys and values.
+  ## Examples
+  iex> str = "name=Ballo&type=Brown"
+  iex> Servy.Parser.parse_params("application/x-www-form-urlencoded", str), 
+  %{"name"=> "Ballo, "type" => "Brown"}
+  iex> Servy.Parser.parse_params("multipart/form-data", str)
+  %{}
+
+  """
   def parse_params("application/x-www-form-urlencoded", params_sring) do
     params_sring |> String.trim |> URI.decode_query
  end 

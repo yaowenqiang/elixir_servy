@@ -20,3 +20,6 @@
 > iex > h File.read
 
 > for x <- [1,2,3], do: x * 3
+
+> mix test test/servy_test.exs
+
